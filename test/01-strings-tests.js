@@ -34,6 +34,7 @@ describe('01-strings-tasks', function() {
 
     it.optional('removeLeadingAndTrailingWhitespaces should remove leading and trailing whitespaces from the string', function() {
         assert.equal('Abracadabra', tasks.removeLeadingAndTrailingWhitespaces('  Abracadabra'));
+        assert.equal('Abracadabra', tasks.removeLeadingAndTrailingWhitespaces('    \t \n  Abracadabra \n \t   \n'));
         assert.equal('cat', tasks.removeLeadingAndTrailingWhitespaces('cat'));
         assert.equal('Hello, World!', tasks.removeLeadingAndTrailingWhitespaces('\tHello, World! '));
     });
@@ -53,6 +54,8 @@ describe('01-strings-tasks', function() {
         assert.equal('div', tasks.unbracketTag('<div>'));
         assert.equal('span', tasks.unbracketTag('<span>'));
         assert.equal('a', tasks.unbracketTag('<a>'));
+        assert.equal('>a><b><c/></b<', tasks.unbracketTag('><a><b><c/></b><'));
+        assert.equal('  > a><b><c/></b>< ', tasks.unbracketTag('  > <a><b><c/></b><> '));
     });
 
     it.optional('convertToUpperCase should convert all chars from specified string into upper case', function() {

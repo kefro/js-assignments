@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.split(', ')[1];
+    return value.split(', ')[1].replace('!', '');
 }
 
 
@@ -99,7 +99,7 @@ function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-    throw new Error('Not implemented');
+    return value.trim();
 }
 
 /**
@@ -130,7 +130,7 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-    throw new Error('Not implemented');
+    return str.replace(value, '');
 }
 
 /**
@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    // return
+    return str.replace('<', '').split("").reverse().join("").replace('>','').split("").reverse().join("");
 }
 
 
@@ -201,7 +201,10 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-    throw new Error('Not implemented');
+    let result = '┌' + '─'.repeat(width - 2) + '┐\n';
+    result += ('│' + ' '.repeat(width - 2) + '│\n').repeat(height - 2);
+    result += '└' + '─'.repeat(width - 2) + '┘\n';
+    return result;
 }
 
 
@@ -221,8 +224,17 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    return null;
 }
+/*
+function rot13(s) {
+  return s.replace(/[A-Za-z]/g, function (c) {
+    return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(
+           "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(c)
+    );
+  } );
+}
+ */
 
 /**
  * Returns true if the value is string; otherwise false.
@@ -238,7 +250,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return typeof value === "string";
+    return typeof value === "string" || typeof eval(value.valueOf()) === "string";
 }
 
 
@@ -267,7 +279,16 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+    let cardsArray = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣', 'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦', 'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥', 'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    let cardsMap = new Map();
+    for (let i = 0; i < 52; i++) {
+        cardsMap.set(cardsArray[i], i);
+    }
+    if (cardsMap.has(value)) {
+        return cardsMap.get(value);
+    } else {
+        return null;
+    }
 }
 
 

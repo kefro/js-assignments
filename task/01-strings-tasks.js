@@ -251,7 +251,7 @@ function rot13(s) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return typeof value === "string" || typeof eval(value.valueOf()) === "string";
+    return (typeof value === "string")||(typeof eval(value.valueOf()) === "string");
 }
 
 

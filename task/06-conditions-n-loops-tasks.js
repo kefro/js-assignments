@@ -125,8 +125,25 @@ function isTriangle(a,b,c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *  
  */
+/*
+        Boolean res = (
+                (rect1.get('left') >= (rect2.get('left') + rect2.get('width'))) ||
+                (rect2.get('left') >= (rect1.get('left') + rect1.get('width'))) ||
+                (rect1.get('top') >= (rect2.get('top') + rect2.get('height'))) ||
+                (rect2.get('top') >= (rect1.get('top') + rect1.get('height')))
+        );
+
+        return !res;
+
+ */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+    let result = (
+        (rect1.left >= (rect2.left + rect2.width)) ||
+        (rect2.left >= (rect1.left + rect1.width)) ||
+        (rect1.top >= (rect2.top + rect2.height)) ||
+        (rect2.top >= (rect1.top + rect1.height))
+    );
+    return !result;
 }
 
 
@@ -156,8 +173,11 @@ function doRectanglesOverlap(rect1, rect2) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *   
  */
+
 function isInsideCircle(circle, point) {
-    return circle.radius > Math.sqrt(Math.pow(point.x - circle.x, 2) + Math.pow(point.y - circle.y, 2));
+    let height = Math.abs(circle.center.y - point.y);
+    let width = Math.abs(circle.center.x - point.x);
+    return (Math.sqrt(Math.pow(height, 2) + Math.pow(width, 2)) < circle.radius);
 }
 
 
@@ -173,7 +193,11 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-
+    let tempSet = new Set(str.split(''));
+    for (let item of tempSet) {
+        if (str.matchAll(new RegExp(item, 'g')).length) return item;
+    }
+    return null;
 }
 
 
@@ -258,7 +282,7 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(ccn) {
-    throw new Error('Not implemented');
+    return null;
 }
 
 
@@ -358,7 +382,7 @@ function compareBrackets(br1, br2) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
+    return null;
 }
 
 
@@ -382,7 +406,7 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-    throw new Error('Not implemented');
+    return null;
 }
 
 
@@ -399,7 +423,7 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    throw new Error('Not implemented');
+    return null;
 }
 
 
@@ -422,7 +446,7 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    throw new Error('Not implemented');
+    return null;
 }
 
 
@@ -457,7 +481,7 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+    return null;
 }
 
 

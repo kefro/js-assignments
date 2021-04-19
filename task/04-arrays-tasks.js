@@ -204,9 +204,7 @@ function getTail(arr, n) {
  *    +'30,31,32,33,34'
  */
 function toCsvText(arr) {
-   for (let i = 0; i < arr.length; i++) {
-      arr[i].join(',');
-   }
+   arr.map(item => item.join(','));
    return arr.join('\n');
 }
 
@@ -344,7 +342,7 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   throw new Error('Not implemented');
+   return null;
 }
 
 /** 
@@ -551,7 +549,7 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   throw new Error('Not implemented');
+   return null;
 }
 
 

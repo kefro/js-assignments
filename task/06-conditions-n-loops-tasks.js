@@ -307,9 +307,24 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+    // if (str.length === 0) return true;
+    let bracketsArray = str.split('');
+    for (let i = 0; i < bracketsArray.length; i++) {
+        if (compareBrackets(bracketsArray[i], bracketsArray[i + 1])) {
+            bracketsArray.splice(i);
+            bracketsArray.splice(i);
+            i--;
+        }
+    }
+    return  bracketsArray.length === 0;
 }
 
+function compareBrackets(br1, br2) {
+    return br1 === '(' & br2 === ')' ||
+        br1 === '<' & br2 === '>' ||
+        br1 === '{' & br2 === '}' ||
+        br1 === '[' & br2 === ']'
+}
 
 /**
  * Returns the human readable string of time period specified by the start and end time.

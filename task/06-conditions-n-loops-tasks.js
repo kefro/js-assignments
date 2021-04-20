@@ -193,9 +193,10 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    let tempSet = new Set(str.split(''));
-    for (let item of tempSet) {
-        if (str.matchAll(new RegExp(item, 'g')).length) return item;
+    let charArr = str.split('');
+    for (let i = 0; i < charArr.length; i++) {
+        let temp = [...str.matchAll(new RegExp(charArr[i], 'g'))];
+        if (temp.length === 1) return charArr[i];
     }
     return null;
 }
@@ -281,8 +282,19 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
+
 function isCreditCardNumber(ccn) {
-    return null;
+    let value = String(ccn);
+    let sum = 0;
+    let isEven = false;
+    for (let i = value.length - 1; i >= 0; i--) {
+        let num = parseInt(value.charAt(i));
+        if (isEven && ((num *= 2) > 9)) num -= 9;
+        sum += num;
+        isEven = !isEven;
+    }
+
+    return ((sum % 10) === 0);
 }
 
 
@@ -301,11 +313,19 @@ function isCreditCardNumber(ccn) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(num) {
+    let arr = Array.from(String(num), Number);
+    return arr.length === 1 ? arr[0] : getDigitalRoot(sumArray(arr));
+    /*
     let result = 0;
     for (let i = 0; i < num.length; i++) {
         result += Number.parseFloat(num[i]);
     }
     return result < 10 ? result : getDigitalRoot(result);
+     */
+}
+
+function sumArray(arr) {
+    return arr.reduce((sum, item) => sum + item, 0);
 }
 
 
@@ -330,20 +350,25 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true 
  */
+
 function isBracketsBalanced(str) {
-    // if (str.length === 0) return true;
-    let bracketsArray = str.split('');
-    for (let i = 0; i < bracketsArray.length; i++) {
-        if (compareBrackets(bracketsArray[i], bracketsArray[i + 1])) {
-            bracketsArray.splice(i);
-            bracketsArray.splice(i);
-            i--;
+    let bracesArray = str.split('');
+    let listChanged = true;
+
+    while (listChanged) {
+        listChanged = false;
+        for (let i = 0; i < bracesArray.length - 1; i++) {
+            if (compareBraces(bracesArray[i], bracesArray[i + 1])) {
+                bracesArray.splice(i, 2);
+                i--;
+                listChanged = true;
+            }
         }
     }
-    return  bracketsArray.length === 0;
+    return !bracesArray.length;
 }
 
-function compareBrackets(br1, br2) {
+function compareBraces(br1, br2) {
     return br1 === '(' & br2 === ')' ||
         br1 === '<' & br2 === '>' ||
         br1 === '{' & br2 === '}' ||
@@ -381,8 +406,118 @@ function compareBrackets(br1, br2) {
  *   Date('2000-01-01 01:00:00.100'), Date('2015-01-02 03:00:05.000')  => '15 years ago'
  *
  */
+
+/*
+        String result;
+
+        Long d1 = startDate.getTime();
+        Long d2 = endDate.getTime();
+
+        Double seconds = (d2 - d1) / 1000;
+        Double minutes = seconds / 60;
+        Double hours = minutes / 60;
+        Double days = hours / 24;
+        Double months = days / 30;
+        Double years = months / 12;
+
+        if (days > 545) {
+            result = Decimal.valueOf(years).round(System.RoundingMode.HALF_DOWN) + ' years ago';
+        } else {
+            if (days > 345) {
+                result = 'a year ago';
+            } else {
+                if (days > 45) {
+                    result = Decimal.valueOf(months).round(System.RoundingMode.HALF_DOWN) + ' months ago';
+                } else {
+                    if (days > 25) {
+                        result = 'a month ago';
+                    } else {
+                        if (hours > 36) {
+                            result = Decimal.valueOf(days).round(System.RoundingMode.HALF_DOWN) + ' days ago';
+                        } else {
+                            if (hours > 22) {
+                                result = 'a day ago';
+                            } else {
+                                if (minutes > 90) {
+                                    result = Decimal.valueOf(hours).round(System.RoundingMode.HALF_DOWN) + ' hours ago';
+                                } else {
+                                    if (minutes > 45) {
+                                        result = 'an hour ago';
+                                    } else {
+                                        if (seconds > 90) {
+                                            result = Decimal.valueOf(minutes).round(System.RoundingMode.HALF_DOWN) + ' minutes ago';
+                                        } else {
+                                            if (seconds > 45) {
+                                                result = 'a minute ago';
+                                            } else {
+                                                result = 'a few seconds ago';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
+ */
+
+
 function timespanToHumanString(startDate, endDate) {
-    return null;
+    let seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+    let minutes = seconds / 60;
+    let hours = minutes / 60;
+    let days = hours / 24;
+    let months = days / 30;
+    let years = months / 12;
+
+    let result;
+
+    if (days > 545) {
+        result = -Math.round(-years) + ' years ago';
+    } else {
+        if (days > 345) {
+            result = 'a year ago';
+        } else {
+            if (days > 45) {
+                result = -Math.round(-months) + ' months ago';
+            } else {
+                if (days > 25) {
+                    result = 'a month ago';
+                } else {
+                    if (hours > 36) {
+                        result = -Math.round(-days) + ' days ago';
+                    } else {
+                        if (hours > 22) {
+                            result = 'a day ago';
+                        } else {
+                            if (minutes > 90) {
+                                result = -Math.round(-hours) + ' hours ago';
+                            } else {
+                                if (minutes > 45) {
+                                    result = 'an hour ago';
+                                } else {
+                                    if (seconds > 90) {
+                                        result = -Math.round(-minutes) + ' minutes ago';
+                                    } else {
+                                        if (seconds > 45) {
+                                            result = 'a minute ago';
+                                        } else {
+                                            result = 'a few seconds ago';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return result;
 }
 
 
@@ -405,10 +540,10 @@ function timespanToHumanString(startDate, endDate) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(num, n) {
-    return null;
-}
 
+function toNaryString(num, n) {
+    return num < n ? String(num) : toNaryString(Math.floor(num / n), n) + String(num % n);
+}
 
 /**
  * Returns the commom directory path for specified array of full filenames.
@@ -423,9 +558,26 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-    return null;
+    let result = pathes[0];
+    for (let i = 1; i < pathes.length; i++) {
+        result = getCommonOfTwoPath(result, pathes[i]);
+    }
+    return result;
 }
 
+function getCommonOfTwoPath(path1, path2) {
+    if (path1[0] !== path2[0]) return '';
+    let result = [];
+    path1 = path1.split('/');
+    path2 = path2.split('/');
+    for (let i = 0; i < path1.length; i++) {
+        if (path1[i] === path2[i]) {
+            result.push(path1[i]);
+        }
+        else break;
+    }
+    return `${result.join('/')}/`;
+}
 
 /**
  * Returns the product of two specified matrixes.
@@ -446,7 +598,9 @@ function getCommonDirectoryPath(pathes) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    return null;
+    if (m1[0].length !== m2.length) return null;
+    let result = Array.apply(null, new Array(m1.length)).map(() => Array.apply(null, new Array(m2[0].length)));
+    return result;
 }
 
 
@@ -481,9 +635,33 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    return null;
+    let arrX = [];
+    let arrO = [];
+
+    for
+
+    let arr = position.flat();
+    for (let i = 0; i < 9; i++) {
+        if (arr[i] === 'X') arrX.push(i);
+        else if (arr[i] === 'O') arrO.push(i);
+    }
+    if (checkWin(arrX) === true) return 'X';
+    else if (checkWin(arrO) === true) return 'O';
+    else return undefined;
 }
 
+function checkWin(arr) {
+    let result = (arr.includes(0) && arr.includes(1) && arr.includes(2)) ||
+        (arr.includes(3) && arr.includes(4) && arr.includes(5)) ||
+        (arr.includes(6) && arr.includes(7) && arr.includes(8)) ||
+        (arr.includes(0) && arr.includes(3) && arr.includes(6)) ||
+        (arr.includes(1) && arr.includes(4) && arr.includes(7)) ||
+        (arr.includes(2) && arr.includes(5) && arr.includes(8)) ||
+        (arr.includes(0) && arr.includes(4) && arr.includes(8)) ||
+        (arr.includes(2) && arr.includes(4) && arr.includes(6));
+    console.log(result);
+    return result;
+}
 
 module.exports = {
     getFizzBuzz: getFizzBuzz,

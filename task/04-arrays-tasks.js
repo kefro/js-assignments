@@ -37,12 +37,10 @@ function findElement(arr, value) {
  *    2 => [ 1, 3 ] 
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(len) {
-   let arr = new Array();
 
-   return [].map((item, i = 0) => {
-      return arr.push(i * 2 + 1);
-   });
+function generateOdds(len) {
+   let temp = -1;
+   return Array.apply(0, new Array(len)).map(() => temp += 2);
 }
 
 
@@ -279,16 +277,11 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-   let result = [];
-   arr.map((item, index) => {
-      for (let i = 0; i <= index; i++) {
-         result.push(item);
-      };
+   let result = Array.apply(null, new Array(arr.length)).map((item, index) => {
+      return Array.apply(null, new Array(index + 1), arr).map(() => arr[index]);
    });
-   return result;
+   return result.flat();
 }
-
-
 
 /** 
  * Returns the 3 largest numbers from the specified array
@@ -321,11 +314,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-   let result = 0;
-   for (let item of arr) {
-      if ((item > 0) && (typeof(item) === 'number')) result++;
-   }
-   return result;
+   return arr.length === 0 ? 0 : arr.reduce((accumulator, item) => accumulator + ((item > 0) && (typeof item === 'number')), 0);
 }
  
 /** 
@@ -342,7 +331,14 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-   return null;
+   const NAMES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+   let result = [];
+   NAMES.forEach((name) => {
+      arr.forEach((item) => {
+         if (item === name) result.push(item);
+      })
+   })
+   return result;
 }
 
 /** 
@@ -444,7 +440,7 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   arr.sort((a, b) => a - b);
+
    return arr;
 }
 
@@ -549,7 +545,11 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-   return null;
+   let result = new Map();
+
+   console.log('test');
+   console.log(keySelector(array[0]));
+
 }
 
 
@@ -582,8 +582,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-   let index = indexes.reduce();
-   return arr.flat()
+   return indexes.length === 1 ? arr[indexes[0]] : getElementByIndexes(arr[indexes[0]], indexes.slice(1));
 }
 
 

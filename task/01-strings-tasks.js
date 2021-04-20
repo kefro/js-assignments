@@ -225,17 +225,12 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    return null;
+    return str.replace(/[A-Za-z]/g, (char) => {
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(
+            "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(char)
+        );
+    } );
 }
-/*
-function rot13(s) {
-  return s.replace(/[A-Za-z]/g, function (c) {
-    return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".charAt(
-           "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(c)
-    );
-  } );
-}
- */
 
 /**
  * Returns true if the value is string; otherwise false.
@@ -251,7 +246,7 @@ function rot13(s) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    return (typeof value === "string")||(typeof eval(value.valueOf()) === "string");
+    return (typeof value === "string") || (value instanceof String);
 }
 
 

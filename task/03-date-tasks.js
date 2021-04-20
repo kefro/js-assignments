@@ -61,14 +61,16 @@ else if (year is not divisible by 100) then (it is a leap year)
 else if (year is not divisible by 400) then (it is a common year)
 else (it is a leap year)
 
-
-d % 4 === 0
-d % 100 !== 0
-
  */
 function isLeapYear(date) {
     let d = date.getFullYear();
-    // return (d % 4 === 0) || (d % 400 === 0);
+    let isLeap;
+    if ((d % 4) !== 0) isLeap = false;
+    else if ((d % 100) !== 0) isLeap = true;
+    else if ((d % 400) !== 0) isLeap = false;
+    else isLeap = true;
+
+    return isLeap;
 }
 
 
@@ -88,8 +90,21 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   let d = Date.parse(endDate) - Date.parse(startDate);
+    let ms = endDate - startDate;
+    let hours = Math.floor(ms / (1000 * 60 * 60));
+    ms -= hours * (1000 * 60 * 60);
+    let minutes = Math.floor(ms / (1000 * 60));
+    ms -= minutes * (1000 * 60);
+    let seconds = Math.floor(ms / 1000);
+    ms -= seconds * 1000;
 
+    if (hours < 10) hours = '0' + hours;
+    if (minutes < 10) minutes = '0' + minutes;
+    if (seconds < 10) seconds = '0' + seconds;
+    if (ms < 10) ms = '00' + ms;
+    else if (ms < 100) ms = '0' + ms;
+
+    return `${hours}:${minutes}:${seconds}.${ms}`;
 }
 
 
@@ -107,8 +122,31 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+    let h = date.getUTCHours() >= 12 ? date.getUTCHours() - 12 : date.getUTCHours();
+    let m = date.getUTCMinutes();
+    let result = Math.abs((60 * h - 11 * m) * (Math.PI / 180) * 0.5);
+    if (result > Math.PI) result = 2 * Math.PI - result;
+    return result;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = {

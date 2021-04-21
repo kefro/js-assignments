@@ -598,10 +598,20 @@ function getCommonOfTwoPath(path1, path2) {
  *
  */
 function getMatrixProduct(m1, m2) {
-    if (m1[0].length !== m2.length) return null;
-    let result = Array.apply(null, new Array(m1.length)).map(() => Array.apply(null, new Array(m2[0].length)));
+    let result = Array.apply(null, new Array(m1.length)).map((item1, index1) => {
+        return Array.apply(null, new Array(m2[0].length)).map((item2, index2) => {
+            let temp;
+            temp = 0;
+            for (let i = 0; i < m1[0].length; i++) {
+                temp += m1[index1][i] * m2[i][index2];
+            }
+            return temp;
+        });
+    });
     return result;
 }
+// console.log(m1[index1][i] + ' - ' + m2[i][index2] + ' - ' + temp);
+// console.log('--------- ' + temp)
 
 
 /**
@@ -637,17 +647,37 @@ function getMatrixProduct(m1, m2) {
 function evaluateTicTacToePosition(position) {
     let arrX = [];
     let arrO = [];
+    
+    let arr = position.map((item, index) => {
+        let temp = [];
+        for (let i = 0; i < 3; i++) {
+            if ((item.length > i) && ((item[i] === 'X') || (item[i] === '0'))) temp.push(item[i]);
+            else temp.push(null);
+        }
+        return temp;
+    });
 
-    for
+    arr = arr.flat();
+    console.log('='.repeat(50));
+    console.log(arr);
 
-    let arr = position.flat();
     for (let i = 0; i < 9; i++) {
         if (arr[i] === 'X') arrX.push(i);
-        else if (arr[i] === 'O') arrO.push(i);
+        else if (arr[i] === '0') arrO.push(i);
     }
-    if (checkWin(arrX) === true) return 'X';
-    else if (checkWin(arrO) === true) return 'O';
-    else return undefined;
+
+    if (checkWin(arrX) === true) {
+        console.log('X wins!!!');
+        return 'X';
+    }
+    else if (checkWin(arrO) === true) {
+        console.log('0 wins!!!');
+        return '0';
+    }
+    else {
+        console.log('undefined');
+        return undefined;
+    }
 }
 
 function checkWin(arr) {
@@ -659,7 +689,6 @@ function checkWin(arr) {
         (arr.includes(2) && arr.includes(5) && arr.includes(8)) ||
         (arr.includes(0) && arr.includes(4) && arr.includes(8)) ||
         (arr.includes(2) && arr.includes(4) && arr.includes(6));
-    console.log(result);
     return result;
 }
 

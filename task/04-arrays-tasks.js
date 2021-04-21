@@ -333,11 +333,12 @@ function getPositivesCount(arr) {
 function sortDigitNamesByNumericOrder(arr) {
    const NAMES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
    let result = [];
-   NAMES.forEach((name) => {
-      arr.forEach((item) => {
-         if (item === name) result.push(item);
+   NAMES.map((item1, index1) => {
+      arr.map((item2, index2) => {
+         if (item1 === item2) result.push(item1);
       })
    })
+   console.log(result);
    return result;
 }
 
@@ -370,13 +371,8 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-   let result = 0;
-   for (let item of arr) {
-      result += (!item);
-   }
-   return result;
+   return arr.reduce((counter, item) => counter + !item, 0);
 }
-
 /**
  * Returns a number of all occurences of the specified item in an array  
  * 
@@ -392,10 +388,7 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-   let result = 0;
-   for (let arrItem of arr) {
-      if (arrItem === item) result++;
-   }
+   let result = arr.reduce((counter, value) => value === item ? counter + 1 : counter, 0)
    return result;
 }
 
@@ -469,14 +462,11 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-   let result = [];
-   for (let i = 0; i < n; i++) {
-      let innerArr = [];
-      for (let j = 0; j < n; j++) {
-         innerArr.push(i === j ? 1 : 0);
-      }
-      result.push(innerArr);
-   }
+   let result = Array.apply(null, new Array(n)).map((item1, index1) => {
+      return Array.apply(null, new Array(n)).map((item2, index2) => {
+         return index1 === index2 ? 1 : 0;
+      })
+   });
    return result;
 }
 
@@ -552,10 +542,17 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
    let result = new Map();
+   array.map((item) => {
+          if (result.has(keySelector(item))) {
+             result.get(keySelector(item)).push(valueSelector(item));
+          } else {
+             result.set(keySelector(item), [valueSelector(item)]);
+          }
+          // console.log(result.get(keySelector(item)));
+       }
+   )
 
-   console.log('test');
-   console.log(keySelector(array[0]));
-
+   return result;
 }
 
 

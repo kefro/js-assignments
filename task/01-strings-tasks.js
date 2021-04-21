@@ -305,3 +305,37 @@ module.exports = {
     isString: isString,
     getCardId: getCardId
 };
+
+/*
+4-array
+
+function sortDigitNamesByNumericOrder(arr) {
+   const NAMES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+   let result = [];
+   NAMES.forEach((name) => {
+      arr.forEach((item) => {
+         if (item === name) result.push(item);
+      })
+   })
+   return result;
+}
+
+function getFalsyValuesCount(arr) {
+   let result = 0;
+   for (let item of arr) {
+      result += (!item);
+   }
+   return result;
+}
+
+
+
+// for positive numbers
+   let result = arr.reduce((counter, item) => {
+      if (item > 0) counter++
+      else counter
+   }, 0)
+   return result;
+
+
+ */

@@ -41,6 +41,7 @@ function findElement(arr, value) {
 function generateOdds(len) {
    let temp = -1;
    return Array.apply(0, new Array(len)).map(() => temp += 2);
+   // return (new Array(len)).map(() => temp += 2);
 }
 
 
@@ -261,6 +262,7 @@ function getSecondItems(arr) {
    return arr.filter(item => arr.indexOf(item) % 2);
 }
 
+//////////////////////////////////////// try to improve
 
 /**
  * Propagates every item in sequence its position times
@@ -316,7 +318,9 @@ function get3TopItems(arr) {
 function getPositivesCount(arr) {
    return arr.length === 0 ? 0 : arr.reduce((accumulator, item) => accumulator + ((item > 0) && (typeof item === 'number')), 0);
 }
- 
+
+
+//////////////////////////////////////// try to improve
 /** 
  * Sorts digit names
  * 
@@ -341,6 +345,8 @@ function sortDigitNamesByNumericOrder(arr) {
    console.log(result);
    return result;
 }
+
+//////////////////////////////////////// stopped here | остановились здесь
 
 /** 
  * Returns the sum of all items in the specified array of numbers

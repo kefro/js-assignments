@@ -47,13 +47,14 @@ function getRegexForGuid() {
  *  'slap two'                'part'
  *  'respite'
  *
- * NOTE : the regex lenth should be < 13
+ * NOTE : the regex length should be < 13
  *
  * @return {RegExp}
  *
  */
+
 function getRegexForPitSpot() {
-   return /\w*p.t/;
+   return /p.t/;
 }
 
 

@@ -54,12 +54,7 @@ function getCicleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-    if (value1 + value2 >= Number.MAX_VALUE) {
-        value1 /= 2;
-        value2 /= 2;
-        return (value1 + value2) / 2 + Number.MAX_VALUE / 2 ;
-    }
-    return (value1 + value2) / 2;
+    return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -150,7 +145,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-    return Number.parseFloat(value);
+    return +value;
 }
 
 /**
@@ -231,7 +226,7 @@ function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 function toNumber(value, def) {
-    return Number.parseFloat(value) || def;
+    return +value || def;
 }
 
 module.exports = {

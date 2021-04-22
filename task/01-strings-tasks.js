@@ -275,16 +275,18 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    let cardsArray = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣', 'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦', 'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥', 'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    let cardsArray = [
+        'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+        'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+        'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+        'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
+    ];
+
     let cardsMap = new Map();
     for (let i = 0; i < 52; i++) {
         cardsMap.set(cardsArray[i], i);
     }
-    if (cardsMap.has(value)) {
-        return cardsMap.get(value);
-    } else {
-        return null;
-    }
+    return cardsMap.has(value) ? cardsMap.get(value) : null;
 }
 
 
@@ -305,6 +307,13 @@ module.exports = {
     isString: isString,
     getCardId: getCardId
 };
+
+
+
+
+
+
+
 
 
 /*

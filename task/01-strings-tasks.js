@@ -306,8 +306,10 @@ module.exports = {
     getCardId: getCardId
 };
 
+
 /*
 4-array
+задания, в которых использованы for, while, for each и тд, которые не надо использовать в этом блоке
 
 function sortDigitNamesByNumericOrder(arr) {
    const NAMES = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];

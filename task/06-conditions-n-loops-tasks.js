@@ -352,6 +352,17 @@ function sumArray(arr) {
  */
 
 function isBracketsBalanced(str) {
+    if (str.length % 2) return false;
+    else {
+        while (str.includes('()') || str.includes('[]') || str.includes('{}') || str.includes('<>')) {
+            str = str.replace('()', '').replace('[]', '').replace('{}', '').replace('<>', '');
+        }
+        return !str.length;
+    }
+}
+
+/*
+function isBracketsBalanced(str) {
     let bracesArray = str.split('');
     let listChanged = true;
 
@@ -374,6 +385,7 @@ function compareBraces(br1, br2) {
         br1 === '{' & br2 === '}' ||
         br1 === '[' & br2 === ']'
 }
+*/
 
 /**
  * Returns the human readable string of time period specified by the start and end time.
@@ -613,7 +625,8 @@ function getMatrixProduct(m1, m2) {
 // console.log(m1[index1][i] + ' - ' + m2[i][index2] + ' - ' + temp);
 // console.log('--------- ' + temp)
 
-
+//////////////////////////////////////// сделать более универсальное решение, чтобы можно было передать массив 5*5 или 4*4 и тд
+// проверять по arr[0][1] типа того
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
  * See the details: https://en.wikipedia.org/wiki/Tic-tac-toe

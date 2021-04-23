@@ -278,6 +278,20 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
+
+/*
+function propagateItemsByPositionIndex(arr) {
+   let newArr = [];
+   let result = arr.map((item, index) => {
+      let temp = new Array(index + 1);
+      // temp = temp.map(arr[index]);
+      newArr.push(temp.map(arr[index]);
+   });
+   return newArr;
+}
+*/
+
+
 function propagateItemsByPositionIndex(arr) {
    let result = Array.apply(null, new Array(arr.length)).map((item, index) => {
       return Array.apply(null, new Array(index + 1), arr).map(() => arr[index]);
@@ -346,7 +360,7 @@ function sortDigitNamesByNumericOrder(arr) {
    return result;
 }
 
-//////////////////////////////////////// stopped here | остановились здесь
+//////////////////////////////////////// stopped here
 
 /** 
  * Returns the sum of all items in the specified array of numbers
@@ -489,6 +503,13 @@ function getIdentityMatrix(n) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
+
+function getIntervalArray(start, end) {
+   if (start === end) return [start];
+   let result = Array.apply(null, new Array(end - start + 1)).map(() => start++);
+   return result;
+}
+/*
 function getIntervalArray(start, end) {
    let result = [];
    if (start === end) {
@@ -500,7 +521,7 @@ function getIntervalArray(start, end) {
    }
    return result;
 }
-
+*/
 /**
  * Returns array containing only unique values from the specified array.
  *
@@ -618,7 +639,8 @@ function swapHeadAndTail(arr) {
     if (arr.length % 2 === 0) {
        return [arr.slice(arr.length / 2), arr.slice(0, arr.length / 2)].flat();
     }
-    return [arr.slice(-((arr.length - 1 )/ 2)), arr[(arr.length - 1) / 2], arr.slice(0, (arr.length - 1) / 2)].flat();
+    // return [arr.slice(-((arr.length - 1 )/ 2)), arr[(arr.length - 1) / 2], arr.slice(0, (arr.length - 1) / 2)].flat();
+   return [arr.slice(arr.length / 2 + 1), arr[Math.round(arr.length/2 - 1)], arr.slice(0, arr.length / 2)].flat();
 }
 
 module.exports = {
